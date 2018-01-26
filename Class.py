@@ -7,7 +7,7 @@ class Parser(object):
         self.string_data = expression
         self.num_clauses = 0
         self.storage = []
-        self.grammar = ['!', '+', '*', '(', ')']
+        self.grammar = ['*', '(', '+', ')', '!', '|', '^', '~']
 
     def get_variables(self):
         '''Get Variables'''
@@ -37,6 +37,36 @@ class Parser(object):
                 self.num_clauses += 1
         return 'Clause Amount: ' + str(self.num_clauses)
 
+    def get_clauses(self):
+        self.storage = []
+        copy = False
+        add_string = ""
+        for x in self.string_data:
+            if x is '(':
+                copy = True
+            if copy:
+                string_to_add += x
+            if x is ')':
+                copy = False
+                self.storage.append(add_string)
+                add_string = ''
+        return self.storage
+
+    def change(self):
+        new = ''
+        for x in self.storage:
+            if x is '+':
+                new += '|'
+            elif x is '!':
+                new += '~'
+            elif x is '*':
+                new += '^'
+            else:
+                new += x
+        self.string_data = new
+        self.get_variables()
+        self.get_clauses()
+        self.get_amount_clause()
 
 if __name__ == '__main__':
     import Main as Main

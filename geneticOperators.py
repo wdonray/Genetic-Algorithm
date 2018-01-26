@@ -26,9 +26,10 @@ def crossover(mom, dad, pivot):
 
 def calc_fitness(pop, cnf):
     p = Parser(cnf)
+    p.get_clauses()
     p.get_amount_clause()
     p.get_variables()
-
+    fitness = []
 
 
 
