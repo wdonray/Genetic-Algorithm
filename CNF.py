@@ -1,6 +1,6 @@
 '''Parser'''
 
-class Parser(object):
+class CNF(object):
     '''Parser'''
 
     def __init__(self, expression):
@@ -45,7 +45,7 @@ class Parser(object):
             if x is '(':
                 copy = True
             if copy:
-                string_to_add += x
+                add_string += x
             if x is ')':
                 copy = False
                 self.storage.append(add_string)
