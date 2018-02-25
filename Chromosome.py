@@ -1,7 +1,7 @@
 import geneticOperators
 import random
 from CNF import CNF
-
+import math
 class Chromosome(object):
     def __init__(self):
         self.id = ""
@@ -18,9 +18,8 @@ class Chromosome(object):
     def evalFitness(self, cnf):
         self.fitness = 0
         p = CNF(cnf)
-        for i in p.storage:
-            if(eval(i)):
-                self.fitness += 1
+        for i in p.string_data:
+            self.fitness += 1
     
     def setFitnessRatio(self, score):
         self.fitness_ratio = round(self.fitness / score, 3)

@@ -11,17 +11,17 @@ def randomChromo(size):
     return chro
 
 
-
 def geneticFunction(cnf):
     p = CNF(cnf)
     p.get_variables()
     population = []
     generation = 1
+    sol = ""
 
     population.append(randomChromo(p.storage.__len__()))
     print population
     print("Solving for ", cnf)
-    while True:
+    while sol is "":
         fitnessess = geneticOperators.fitnessFunc(population, cnf)
         newpop = []
         for i in range(0, population.__len__()-1):
@@ -34,5 +34,3 @@ def geneticFunction(cnf):
             i += 1
         population = newpop
         generation += 1
-
-        

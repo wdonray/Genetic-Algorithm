@@ -38,7 +38,7 @@ def fitnessFunc(pop, cnf):
     count = 0
     for i in pop:
         i.id = str(count)
-        i.evalFitness(p)
+        i.evalFitness(cnf)
         score += i.fitness
         count += 1
 
