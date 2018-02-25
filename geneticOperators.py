@@ -5,7 +5,7 @@ from Chromosome import Chromosome
 
 def mutate(chromosome):
     storage = ""
-    for a in chromosome:
+    for a in chromosome.id:
         ran = random.uniform(0, 1)
         if ran < .5:
             if a is '0':
@@ -18,38 +18,27 @@ def mutate(chromosome):
 
 def crossover(mom, dad, pivot):
     childA, childB = "", ""
-    for x in range(0, str(mom).__len__()):
+    for x in range(0, str(mom.id).__len__()):
         if x < pivot:
-            childA += mom[x]
-            childB += dad[x]
+            childA += mom.id[x]
+            childB += dad.id[x]
         else:
-            childB += mom[x]
-            childA += dad[x]
-    return (childA, childB)
+            childB += mom.id[x]
+            childA += dad.id[x]
+    child1 = Chromosome()
+    child2 = Chromosome()
+    child1.id = childA
+    child2.id = childB
+    return (child1, child2)
 
 
 def fitnessFunc(pop, cnf):
     p = CNF(cnf)
-    p.get_clauses()
-    p.get_amount_clause()
-    p.get_variables()
-    p.change()
     score = 0
-    count = 0
     for i in pop:
-        i.id = str(count)
         i.evalFitness(cnf)
         score += i.fitness
-        count += 1
-
-    prev = 0
-    for x in pop:
-        x.setFitnessRatio(score)
-        x.setFitnessRange(prev)
-        prev = x.maxRange
     return pop
-
-
 
 if __name__ == '__main__':
     import Main as Main

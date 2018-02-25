@@ -1,4 +1,3 @@
-import geneticOperators
 import random
 from CNF import CNF
 import math
@@ -7,28 +6,22 @@ class Chromosome(object):
         self.id = ""
         self.fitness = 0
         self.fitness_ratio = 0
-        self.minRange = 0
-        self.maxRange = 0
 
-    def display(self):
-        print("Chromosome", self.id)
-        print("Fitness", self.fitness)
-        print("Fitness Ratio", self.fitness_ratio)
+    def __str__(self):
+        return "Chromosome: " + str(self.id) + " Fitness: " + str(self.fitness)  
 
     def evalFitness(self, cnf):
         self.fitness = 0
         p = CNF(cnf)
-        for i in p.string_data:
-            self.fitness += 1
-    
-    def setFitnessRatio(self, score):
-        self.fitness_ratio = round(self.fitness / score, 3)
+        p.get_amount_clause()
+        p.get_clauses()
+        p.get_variables()
+        result = p.test_solution(self.id)
+        for s in result:
+            if s is 1:
+                self.fitness += 1
+        self.fitness = float(self.fitness)/float(p.num_clauses)
 
-    def setFitnessRange(self, chrom):
-        self.minRange = round(chrom, 2)
-        self.maxRange = round(self.fitness_ratio + chrom, 3)
-        if(self.maxRange >= .99):
-            self.maxRange = math.ceil(self.maxRange)
     
 if __name__ == '__main__':
     import Main as Main

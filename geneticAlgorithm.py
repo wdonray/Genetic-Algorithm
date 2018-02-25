@@ -13,24 +13,38 @@ def randomChromo(size):
 
 def geneticFunction(cnf):
     p = CNF(cnf)
+    p.get_clauses()
+    p.get_amount_clause()
     p.get_variables()
+    p.change()
     population = []
-    generation = 1
-    sol = ""
-
     population.append(randomChromo(p.storage.__len__()))
-    print population
+    population.append(randomChromo(p.storage.__len__()))
     print("Solving for ", cnf)
-    while sol is "":
+    while True:
         fitnessess = geneticOperators.fitnessFunc(population, cnf)
+        x = 0
+        for c in population:
+            c.fitness = fitnessess[x].fitness
+            print c
+            x += 1
+        for c in population:
+            if int(c.fitness) is 1:
+                print("solved")
+                return
         newpop = []
         for i in range(0, population.__len__()-1):
-            children = geneticOperators.crossover(population[i], population[i + 1])
-            child1 = geneticOperators.mutate(children[0])
-            child2 = geneticOperators.mutate(children[1])
+            num = random.randint(0, population[0].id.__len__())
+            children = geneticOperators.crossover(population[i], population[i + 1], num)
+            child1 = Chromosome()
+            child2 = Chromosome()
+            child1.id = geneticOperators.mutate(children[0])
+            child2.id = geneticOperators.mutate(children[1])
 
-            newpop.append(children1)
-            newpop.append(children2)
+            newpop.append(child1)
+            newpop.append(child2)
             i += 1
         population = newpop
-        generation += 1
+if __name__ == '__main__':
+    import Main as Main
+    Main.main()

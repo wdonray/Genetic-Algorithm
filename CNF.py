@@ -1,3 +1,4 @@
+import random
 '''Parser'''
 
 class CNF(object):
@@ -6,23 +7,24 @@ class CNF(object):
     def __init__(self, expression):
         self.string_data = expression
         self.num_clauses = 0
+        self.variables = []
         self.storage = []
         self.grammar = ['*', '(', '+', ')', '!', '|', '^', '~']
 
     def get_variables(self):
         '''Get Variables'''
         test = []
-        self.storage = self.string_data
+        self.variables = self.string_data
         for i in self.grammar:
-            self.storage = self.storage.replace(i, '')
+            self.variables = self.variables.replace(i, '')
 
-        for data in self.storage:
+        for data in self.variables:
             #Check for duplicates
             if data not in test:
                 test.append(data)
 
-        self.storage = sorted(test, key = lambda x: x)
-        return self.storage
+        self.variables = sorted(test, key=lambda x: x)
+        return self.variables
 
     def get_data_from_file(self, filename):
         '''Get Data From File'''
@@ -67,6 +69,33 @@ class CNF(object):
         self.get_variables()
         self.get_clauses()
         self.get_amount_clause()
+
+    def test_solution(self, solution):
+        result = []
+        variables = {}
+        self.change()
+        i = 0
+        for v in self.variables:
+            variables[v] = solution[i]
+            i += 1
+        clauses = self.storage
+        for c in clauses:
+            clauseval = ''
+            for place in range(1, str(c).__len__()-1):
+                if c[place] in self.variables:
+                    clauseval += variables[c[place]]
+                else:
+                    clauseval += c[place]
+            result.append(eval(clauseval))    
+        fixedResult = []
+        for r in result:
+            if r is -1:
+                fixedResult.append(1)
+            elif r is -2:
+                fixedResult.append(0)
+            else:
+                fixedResult.append(r)
+        return fixedResult          
 
 if __name__ == '__main__':
     import Main as Main
