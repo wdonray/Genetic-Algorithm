@@ -57,14 +57,15 @@ class CNF(object):
     def change(self):
         new = ''
         for x in self.storage:
-            if x is '+':
-                new += '|'
-            elif x is '!':
-                new += '~'
-            elif x is '*':
-                new += '^'
-            else:
-                new += x
+            for c in x:
+                if c is '+':
+                    new += '|'
+                elif c is '!':
+                    new += '~'
+                elif c is '*':
+                    new += '^'
+                else:
+                    new += c
         self.string_data = new
         self.get_variables()
         self.get_clauses()
@@ -95,7 +96,7 @@ class CNF(object):
                 fixedResult.append(0)
             else:
                 fixedResult.append(r)
-        return fixedResult          
+        return fixedResult    
 
 if __name__ == '__main__':
     import Main as Main

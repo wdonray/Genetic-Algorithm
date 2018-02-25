@@ -18,8 +18,8 @@ def geneticFunction(cnf):
     p.get_variables()
     p.change()
     population = []
-    population.append(randomChromo(p.storage.__len__()))
-    population.append(randomChromo(p.storage.__len__()))
+    population.append(randomChromo(p.variables.__len__()))
+    population.append(randomChromo(p.variables.__len__()))
     print("Solving for ", cnf)
     while True:
         fitnessess = geneticOperators.fitnessFunc(population, cnf)
