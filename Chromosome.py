@@ -5,7 +5,6 @@ class Chromosome(object):
     def __init__(self):
         self.id = ""
         self.fitness = 0
-        self.fitness_ratio = 0
 
     def __str__(self):
         return "Chromosome: " + str(self.id) + " Fitness: " + (str(round(self.fitness,2)))
