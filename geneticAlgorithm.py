@@ -20,8 +20,10 @@ def geneticFunction(cnf):
     population = []
     population.append(randomChromo(p.variables.__len__()))
     population.append(randomChromo(p.variables.__len__()))
+    numofChildren = p.variables.__len__() / 2
+
     print("Solving for ", cnf)
-    while True:
+    while True:    
         fitnessess = geneticOperators.fitnessFunc(population, cnf)
         x = 0
         for c in population:
@@ -30,12 +32,12 @@ def geneticFunction(cnf):
             x += 1
         for c in population:
             if int(c.fitness) is 1:
-                print("solved")
-                return
+                print("CNF: Solved", cnf)
+                return c
         newpop = []
-        for i in range(0, population.__len__()-1):
+        for i in range(0, numofChildren):
             num = random.randint(0, population[0].id.__len__())
-            children = geneticOperators.crossover(population[i], population[i + 1], num)
+            children = geneticOperators.crossover(population[0], population[1], num)
             child1 = Chromosome()
             child2 = Chromosome()
             child1.id = geneticOperators.mutate(children[0])

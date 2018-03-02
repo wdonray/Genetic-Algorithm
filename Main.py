@@ -7,10 +7,11 @@ import geneticAlgorithm
 
 def main():
     '''Main'''
-    p = CNF('(A+B)*(B+!C)')
+    p = CNF('')
     p.get_data_from_file('data.txt')
 
-    print str(geneticAlgorithm.geneticFunction(p.string_data))
+    solution = str(geneticAlgorithm.geneticFunction(p.string_data))
+    print ("Solution", solution)
     raw_input()
 if __name__ == "__main__":
     main()
