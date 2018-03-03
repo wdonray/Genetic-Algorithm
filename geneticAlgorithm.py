@@ -22,17 +22,14 @@ def geneticFunction(cnf):
     population.append(randomChromo(p.variables.__len__()))
     numofChildren = p.variables.__len__() / 2
 
-    print("Solving for ", cnf)
     while True:    
         fitnessess = geneticOperators.fitnessFunc(population, cnf)
         x = 0
         for c in population:
             c.fitness = fitnessess[x].fitness
-            print c
             x += 1
         for c in population:
             if int(c.fitness) is 1:
-                print("CNF: Solved", cnf)
                 return c
         newpop = []
         for i in range(0, numofChildren):
@@ -46,6 +43,11 @@ def geneticFunction(cnf):
             newpop.append(child1)
             newpop.append(child2)
             i += 1
+
+            if(i >= 1000):
+                print("No Solution found :(")
+                break
+
         population = newpop
 if __name__ == '__main__':
     import Main as Main

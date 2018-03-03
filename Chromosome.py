@@ -7,7 +7,7 @@ class Chromosome(object):
         self.fitness = 0
 
     def __str__(self):
-        return "Chromosome: " + str(self.id) + " Fitness: " + (str(round(self.fitness,2)))
+        return "Chromosome: " + str(self.id)
 
     def evalFitness(self, cnf):
         self.fitness = 0
